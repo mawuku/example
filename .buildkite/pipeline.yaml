@@ -10,7 +10,7 @@ steps:
     command:
       - pwd
       - ls -R
-      - go build -o ./dist/my-app .
+      - go build -o ./dist/my-app ./hello
     artifact_paths:
       - "./dist/my-app"
 
