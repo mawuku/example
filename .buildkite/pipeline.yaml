@@ -1,0 +1,35 @@
+agents:
+  queue: "selfhosted"
+
+steps:
+  - label: ":package: Build binary"
+    key: "build"
+    plugins:
+      - docker#v5.13.0:
+          image: "golang:1.18.0"
+    command:
+      - go build -o ./dist/my-app .
+    artifact_paths:
+      - "./dist/my-app"
+
+  - block: "who is this"
+    key: "block"
+    fields:
+      - text: "Name"
+        key: "some_name"
+
+  - label: "Store block answer"
+    key: "store-meta"
+    depends_on: "block"
+    command:
+      - buildkite-agent meta-data set "some_name" "$some_name"
+
+  - label: ":rocket: Run binary"
+    key: "run-binary"
+    depends_on: "store-meta"
+    command:
+      - NAME=$(buildkite-agent meta-data get "some_name")
+      - echo "Running for: $NAME"
+      - buildkite-agent artifact download "dist/my-app" .
+      - chmod +x dist/my-app
+      - ./dist/my-app $NAME
