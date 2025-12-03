@@ -7,7 +7,6 @@ steps:
     plugins:
       - docker#v5.13.0:
           image: "golang:1.18.0"
-           user: "1000:1000"
     command:
       - pwd
       - ls -R
