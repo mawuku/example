@@ -20,12 +20,6 @@ steps:
       - text: "Name"
         key: "some_name"
 
-  - label: "Store block answer"
-    key: "store-meta"
-    depends_on: "block"
-    command:
-      - buildkite-agent meta-data set "some_name" "$some_name"
-
   - label: ":rocket: Run binary"
     key: "run-binary"
     depends_on: "store-meta"
