@@ -28,4 +28,4 @@ steps:
       - echo ${NAME}
       - buildkite-agent artifact download "dist/my-app" .
       - chmod +x dist/my-app
-      - ./dist/my-app $NAME
+      - ./dist/my-app $(buildkite-agent meta-data get some_name)
