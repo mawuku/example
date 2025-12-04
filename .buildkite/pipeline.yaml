@@ -25,7 +25,6 @@ steps:
     depends_on: "block"
     command:
       - NAME=$(buildkite-agent meta-data get "some_name")
-      - echo "Running for: ${NAME}"
       - buildkite-agent artifact download "dist/my-app" .
       - chmod +x dist/my-app
       - ./dist/my-app $NAME
