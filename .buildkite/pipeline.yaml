@@ -24,7 +24,7 @@ steps:
     key: "run-binary"
     depends_on: "block"
     command:
-      - NAME=$(buildkite-agent meta-data get "some_name")
+      - NAME=$(buildkite-agent meta-data get some_name)
       - buildkite-agent artifact download "dist/my-app" .
       - chmod +x dist/my-app
       - ./dist/my-app $NAME
